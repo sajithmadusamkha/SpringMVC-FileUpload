@@ -22,6 +22,16 @@
            e.preventDefault();
            var formData = new FormData();
            formData.append('file',$("#fileInput")[0].files[0]);
+           $.ajax({
+               url: '/uploadFile',
+               type: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false,
+               success: function (data) {
+                   $("#displayArea").html(data);
+               }
+           });
        });
     });
 </script>
