@@ -7,6 +7,22 @@
 </head>
 <body>
 
+<div id="displayArea"></div>
+
+<form id="fileUploadForm">
+    <input type="file" id="fileInput" name="file">
+    <button type="submit">Upload</button>
+</form>
+
 </body>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+       $("#fileUploadForm").submit(function (e) {
+           e.preventDefault();
+           var formData = new FormData();
+           formData.append('file',$("#fileInput")[0].files[0]);
+       });
+    });
+</script>
 </html>
