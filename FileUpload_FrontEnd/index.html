@@ -2,37 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>File Upload</title>
+    <title>Spring MVC-File Upload</title>
     <meta content="width=device-width initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-
-<div id="displayArea"></div>
-
-<form id="fileUploadForm">
-    <input type="file" id="fileInput" name="file">
-    <button type="submit">Upload</button>
-</form>
-
+<section class="container mt-5">
+    <div class="mb-3">
+        <form>
+            <label for="formFile" class="form-label">Upload Your Image</label>
+            <input name="file" class="form-control" type="file" id="formFile" style="height: calc(1em + 1.75rem + 2px)">
+            <button type="button" id="btnUpload" class="btn btn-primary mt-3">Upload File</button>
+        </form>
+    </div>
+    <div id="displayArea" class="border border-dark w-100" style="height: 300px; border-radius: 5px;"></div>
+</section>
 </body>
+<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script>
-    $(document).ready(function () {
-       $("#fileUploadForm").submit(function (e) {
-           e.preventDefault();
-           var formData = new FormData();
-           formData.append('file',$("#fileInput")[0].files[0]);
-           $.ajax({
-               url: '/uploadFile',
-               type: 'POST',
-               data: formData,
-               contentType: false,
-               processData: false,
-               success: function (data) {
-                   $("#displayArea").html(data);
-               }
-           });
-       });
-    });
+    var baseUrl = "http://localhost:8080/app/";
+
 </script>
 </html>
