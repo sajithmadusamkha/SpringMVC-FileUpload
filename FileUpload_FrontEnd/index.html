@@ -18,10 +18,56 @@
     <div id="displayArea" class="border border-dark w-100" style="height: 300px; border-radius: 5px;"></div>
 </section>
 </body>
-<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <script>
-    var baseUrl = "http://localhost:8080/app/";
+    let baseUrl = "http://localhost:8080/app/";
+
+    loadImage();
+
+    $("#btnUpload").click(function () {
+        var data = new FormData();
+        let file = $("#formFile")[0].files[0];
+        let fileName = $("#formFile")[0].files[0].name;
+        data.append("myFile", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "uploadFile",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+                loadImage();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+
+    function loadImage() {
+        $.ajax({
+            url: baseUrl + "uploadFile",
+            method: "get",
+            dataType: "json",
+            success: function (res) {
+                let url = res[res.length-1];
+
+                $("#displayArea").css({
+                   "background":`url(${baseUrl + url})`,
+                    "background-repeat":"no-repeat",
+                    "background-size": "contain",
+                    "height": "300px"
+                });
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
 
 </script>
 </html>
